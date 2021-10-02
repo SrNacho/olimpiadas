@@ -33,9 +33,10 @@ def dfState():
   global dataFrame
   dataFrame = df
 
-
+flag = 0
 def index(request):
-  flag = 0
+  global flag
+  print(flag)
   if flag == 0:
     flag = 1
     dfState()
