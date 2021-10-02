@@ -9,4 +9,4 @@ r = requests.get(report_url)
 dir = '{}/covid_report.csv'.format(pathlib.Path(__file__).parent.resolve())
 with open(dir, 'wb') as f:
     f.write(r.content)
-time.sleep(60)
+
