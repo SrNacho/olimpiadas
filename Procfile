@@ -1,1 +1,1 @@
-web: gunicorn covidolimpiada.wsgi
+web: gunicorn covidolimpiada.wsgi --timeout 300
