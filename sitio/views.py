@@ -21,8 +21,7 @@ def custom_date_parser(date):
     x.append(datetime.strftime(newDate, '%Y-%m-%d'))
   return x
  
-flag = 0
-dataFrame = 0
+
 
 def dfState():
   line = 0
@@ -30,16 +29,17 @@ def dfState():
   for chunk in pd.read_csv("covid_report.csv",chunksize = chksz,index_col=0):
       line += chunk.shape[0]
   df = pd.read_csv ('covid_report.csv',skiprows=line-5311, names=['FECHA','TIPO_REPORTE','TIPO_DATO','SUBTIPO_DATO','VALOR','FECHA_PROCESO','ID_CARGA'], parse_dates=['FECHA'], date_parser=custom_date_parser)
-  dff = df.sort_values(by=["FECHA"], ascending=False)
+  #dff = df.sort_values(by=["FECHA"], ascending=False)
   global dataFrame
   dataFrame = df
 
 
 def index(request):
+  flag = 0
   if flag == 0:
-    global flag
     flag = 1
     dfState()
+  print(flag)
   #df = pd.read_csv ('covid_report.csv', parse_dates=['FECHA'])
   #dff = df.sort_values(by=["FECHA"], ascending=False)
   """file = open('./covid_report.csv')
