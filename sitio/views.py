@@ -21,20 +21,30 @@ def custom_date_parser(date):
     x.append(datetime.strftime(newDate, '%Y-%m-%d'))
   return x
  
+flag = 0
+dataFrame = 0
 
-def index(request):
-  #df = pd.read_csv ('covid_report.csv', parse_dates=['FECHA'])
-  #dff = df.sort_values(by=["FECHA"], ascending=False)
-  """file = open('./covid_report.csv')
-  lastLines = tl.tail(file,5311) #to read last 15 lines, change it  to any value.
-  file.close()
-  abc=pd.read_csv(io.StringIO('\n'.join(lastLines)))"""
+def dfState():
   line = 0
   chksz = 1000
   for chunk in pd.read_csv("covid_report.csv",chunksize = chksz,index_col=0):
       line += chunk.shape[0]
   df = pd.read_csv ('covid_report.csv',skiprows=line-5311, names=['FECHA','TIPO_REPORTE','TIPO_DATO','SUBTIPO_DATO','VALOR','FECHA_PROCESO','ID_CARGA'], parse_dates=['FECHA'], date_parser=custom_date_parser)
   dff = df.sort_values(by=["FECHA"], ascending=False)
-  print(line)
-  print(dff)
-  return JsonResponse({"de matos es gay":dff.to_dict()})
+  global dataFrame
+  dataFrame = df
+
+
+def index(request):
+  if flag == 0:
+    global flag
+    flag = 1
+    dfState()
+  #df = pd.read_csv ('covid_report.csv', parse_dates=['FECHA'])
+  #dff = df.sort_values(by=["FECHA"], ascending=False)
+  """file = open('./covid_report.csv')
+  lastLines = tl.tail(file,5311) #to read last 15 lines, change it  to any value.
+  file.close()
+  abc=pd.read_csv(io.StringIO('\n'.join(lastLines)))"""
+
+  return JsonResponse({"de matos es gay":dataFrame.to_dict()})
