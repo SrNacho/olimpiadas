@@ -28,10 +28,11 @@ def dfState():
   chksz = 1000
   for chunk in pd.read_csv("covid_report.csv",chunksize = chksz,index_col=0):
       line += chunk.shape[0]
-  df = pd.read_csv ('covid_report.csv',skiprows=line-5311, names=['FECHA','TIPO_REPORTE','TIPO_DATO','SUBTIPO_DATO','VALOR','FECHA_PROCESO','ID_CARGA'], parse_dates=['FECHA'], date_parser=custom_date_parser)
+  print(line)
+  #df = pd.read_csv ('covid_report.csv',skiprows=line-5311, names=['FECHA','TIPO_REPORTE','TIPO_DATO','SUBTIPO_DATO','VALOR','FECHA_PROCESO','ID_CARGA'], parse_dates=['FECHA'], date_parser=custom_date_parser)
   #dff = df.sort_values(by=["FECHA"], ascending=False)
-  global dataFrame
-  dataFrame = df
+  #global dataFrame
+  #dataFrame = df
 
 flag = 0
 def index(request):
