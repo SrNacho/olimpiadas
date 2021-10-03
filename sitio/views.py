@@ -40,8 +40,8 @@ flag = 0
 
 def index(request):
     global flag
+    print(flag)
     if flag == 0:
         flag = 1
         df_state()
-    
     return JsonResponse(dataFrame.to_dict('records'), safe=False)
