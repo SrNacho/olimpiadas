@@ -39,14 +39,9 @@ def df_state():
 flag = 0
 
 def index(request):
-    t1_start = process_time()
     global flag
     if flag == 0:
         flag = 1
         df_state()
-    t1_stop = process_time()
-    print("Elapsed time:", t1_stop, t1_start)
-
-    print("Elapsed time during the whole program in seconds:",
-          t1_stop-t1_start)
+    
     return JsonResponse(dataFrame.to_dict('records'), safe=False)
